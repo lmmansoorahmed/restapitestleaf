@@ -1,0 +1,207 @@
+{
+	"info": {
+		"_postman_id": "38d7cbe8-9e63-4419-ba82-44265ac2f6dc",
+		"name": "ServiceNow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5445621",
+		"_collection_link": "https://martian-sunset-259541.postman.co/workspace/Postman-Sep~50ea4a6c-b787-4b92-a519-a02f17cfb9e4/collection/5445621-38d7cbe8-9e63-4419-ba82-44265ac2f6dc?action=share&source=collection_link&creator=5445621"
+	},
+	"item": [
+		{
+			"name": "RetrieveRecord",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-UserToken",
+						"value": "b9324275471131104f5f7d7ba26d43f9bb441a16f7643f7c9d0d1f25519cbeb147c7ace2",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://dev178685.service-now.com/api/now/table/incident?sysparm_limit=1",
+					"protocol": "https",
+					"host": [
+						"dev178685",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"incident"
+					],
+					"query": [
+						{
+							"key": "sysparm_limit",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateARecord",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"resp = pm.response.json()\r",
+							"pm.globals.set(\"sys_id\",resp.sys_id)\r",
+							"\r",
+							"pm.test(\"Status code is 201 created\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"business_service\":\"Email_Information_Service\",\"description\":\"Service Now Demo\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev178685.service-now.com/api/now/table/incident",
+					"protocol": "https",
+					"host": [
+						"dev178685",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"incident"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RetrieveACreatedRecord",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"description\":\"Service Now Updated\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev178685.service-now.com/api/now/table/incident/{{sys_id}}",
+					"protocol": "https",
+					"host": [
+						"dev178685",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"incident",
+						"{{sys_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://dev178685.service-now.com/api/now/table/incident/{{sys_id}}",
+					"protocol": "https",
+					"host": [
+						"dev178685",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"incident",
+						"{{sys_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "$-MViYm0on6Z",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
